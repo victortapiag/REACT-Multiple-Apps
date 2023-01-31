@@ -1,0 +1,4 @@
+ISSUER=https://sso-wf.okta.uno/oauth2/default
+CLIENT_ID=0oa4izahtnbtH4knO1d7
+USE_INTERACTION_CODE=trues
+PORT=3040
