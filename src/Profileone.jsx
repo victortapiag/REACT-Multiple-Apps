@@ -24,6 +24,8 @@ const Profileone = () => {
   const { authState, oktaAuth } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
   const [userInfo2, setUserInfo2] = useState(null);
+  const [tokenInfo, setTokenInfo] = useState(null);
+  const [tokenInfo2, setTokenInfo2] = useState(null);
 
   const { clientId } = config.oidc;
   const { clientId:clientIdOne } = config.oidc_one;
@@ -39,6 +41,7 @@ const Profileone = () => {
       }else{
         oktaAuth2.getUser().then((info) => {
           setUserInfo2(info);
+          setTokenInfo2(oktaAuth2.tokenManager.getTokensSync().accessToken);
           
         }).catch((err) => {
           console.error(err);
@@ -46,7 +49,7 @@ const Profileone = () => {
       }
       oktaAuth.getUser().then((info) => {
         setUserInfo(info);
-        
+        setTokenInfo(oktaAuth.tokenManager.getTokensSync().accessToken);
       }).catch((err) => {
         console.error(err);
       });
@@ -86,6 +89,10 @@ const Profileone = () => {
         <p>
           APP ID: {clientId}
         </p>
+        <p>
+          Access Token: {tokenInfo}          
+        </p>
+        
         <Table>
           <thead>
             <tr>
@@ -114,6 +121,10 @@ const Profileone = () => {
             <p>
               APP ID: {clientIdOne}
             </p>
+            <p>
+             Access Token: {tokenInfo2}          
+            </p>
+
             <Table>
               <thead>
                 <tr>

@@ -19,6 +19,7 @@ import config from './config';
 const Profile = () => {
   const { authState, oktaAuth } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
+  const [tokenInfo, setTokenInfo] = useState(null);
 
   const { clientId } = config.oidc;
 
@@ -29,6 +30,7 @@ const Profile = () => {
     } else {
       oktaAuth.getUser().then((info) => {
         setUserInfo(info);
+        setTokenInfo(oktaAuth.tokenManager.getTokensSync().accessToken);
         console.log(oktaAuth.tokenManager.getTokensSync());
       }).catch((err) => {
         console.error(err);
@@ -68,6 +70,9 @@ const Profile = () => {
         </p>
         <p>
           APP ID: {clientId}
+        </p>
+        <p>
+          Access Token: {tokenInfo}
         </p>
         <Table>
           <thead>

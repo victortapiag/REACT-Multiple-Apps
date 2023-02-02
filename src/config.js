@@ -35,7 +35,7 @@ export default {
     clientId: '0oa5ztuam6Qn5ndHU1d7',
     issuer: ISSUER,
     redirectUri: REDIRECT_URI+'one',
-    scopes: ['openid', 'profile', 'email', 'offline_access'],
+    scopes: ['openid', 'profile', 'email', 'offline_access', 'app_two'],
     pkce: true,
     disableHttpsCheck: OKTA_TESTING_DISABLEHTTPSCHECK,
     useInteractionCode: USE_INTERACTION_CODE
