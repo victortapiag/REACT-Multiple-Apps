@@ -71,9 +71,7 @@ const Profile = () => {
         <p>
           APP ID: {clientId}
         </p>
-        <p>
-          Access Token: {tokenInfo}
-        </p>
+  
         <Table>
           <thead>
             <tr>
