@@ -58,7 +58,7 @@ const Login = ({ setCorsErrorModalOpen }) => {
         tokenManager: {
           storage: 'sessionStorage'
         },
-        responseType: ['id_token', 'token', 'code'],
+        responseType: ['code'],
       },
       useInteractionCodeFlow: useInteractionCode, // Set to true, if your org is OIE enabled
       state,
@@ -69,41 +69,7 @@ const Login = ({ setCorsErrorModalOpen }) => {
       }
 
       
-     /* baseUrl: "https://id.azamara.online",
-        clientId,
-        redirectUri,
-        //state: 'eyJzdGF0ZU5vbmNlIjoiNjc0YTg2NzYtMGE5Yi00NmIzLWI2N2QtZjg5NjAxODI4MzY5In0=',
-        //codeChallenge: 'GSNpg1qhUxzscLy6AF3LuS5P7wBxREYf_SSvLMqj7xA',
-        state,
-        otp,
-        useInteractionCodeFlow: true,
-        language: 'en',
-        authParams: {
-            issuer: 'https://id.azamara.online/oauth2/default/',
-            responseType: ['id_token', 'token', 'code'],
-            scopes: ['openid', 'email', 'profile'],
-            tokenManager: {
-                storage: 'sessionStorage'
-            }
-        },
-        logo: '/static-assets/images/logos/azamara-logo.png',
-        i18n: {
-                                        en: {
-                                        // Labels
-                                        'primaryauth.title': 'Log in to your account',
-                                        'primaryauth.username.placeholder': 'Email',
-                                        'primaryauth.password.placeholder': 'Password',
-                                        // Errors
-                                        'error.username.required': 'Please enter an email address',
-                                        'error.password.required': 'Please enter a password',
-                                        'errors.E0000004': 'Log in failed!'
-                                        }
-                                        },
-        features: {
-                                            registration: true,
-                                            scrollOnError: false,
-                                        },
-    */
+
     });
 
     widget.showSignInAndRedirect({
@@ -113,15 +79,7 @@ const Login = ({ setCorsErrorModalOpen }) => {
       // Known errors: CONFIG_ERROR, UNSUPPORTED_BROWSER_ERROR
   });
 
-    /*widget.renderEl(
-      { el: widgetRef.current },
-      (res) => {
-        oktaAuth.handleLoginRedirect(res.tokens);
-      },
-      (err) => {
-        throw err;
-      },
-    );*/
+ 
 
     // Note: Can't distinguish CORS error from other network errors
     const isCorsError = (err) => (err.name === 'AuthApiError' && !err.statusCode);

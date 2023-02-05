@@ -28,20 +28,21 @@ const Profileone = () => {
   const [tokenInfo2, setTokenInfo2] = useState(null);
 
   const { clientId } = config.oidc;
-  const { clientId:clientIdOne } = config.oidc_one;
+  const { clientId:clientId2 } = config.oidc_one;
 
   useEffect(async() => {
     if (!authState || !authState.isAuthenticated) {
-      // When user isn't authenticated, forget any user info
+      // When user isn't authenticated at all, forget any user info
       setUserInfo(null);
     } else {
       const authStateOne = await oktaAuth2.authStateManager.updateAuthState();
       if(!authStateOne || !authStateOne.isAuthenticated){
+        // When user isn't authenticated at the child application
         oktaAuth2.signInWithRedirect();
       }else{
         oktaAuth2.getUser().then((info) => {
           setUserInfo2(info);
-          setTokenInfo2(oktaAuth2.tokenManager.getTokensSync().accessToken);
+          setTokenInfo2(oktaAuth2.tokenManager.getTokensSync().accessToken.accessToken);
           
         }).catch((err) => {
           console.error(err);
@@ -49,7 +50,7 @@ const Profileone = () => {
       }
       oktaAuth.getUser().then((info) => {
         setUserInfo(info);
-        setTokenInfo(oktaAuth.tokenManager.getTokensSync().accessToken);
+        setTokenInfo(oktaAuth.tokenManager.getTokensSync().accessToken.accessToken);
       }).catch((err) => {
         console.error(err);
       });
@@ -70,7 +71,7 @@ const Profileone = () => {
         <Header as="h1">
           <Icon name="drivers license" />
           {' '}
-          My User Profile (ID Token Claims)
+          My User Profile App #2 (ID Token Claims)
           {' '}
         </Header>
         <p>
@@ -87,10 +88,10 @@ const Profileone = () => {
           component, which will ensure that this page cannot be accessed until you have authenticated.
         </p>
         <p>
-          APP ID: {clientId}
+          APP ID (MAIN): {clientId}
         </p>
         <p>
-          Access Token: {tokenInfo}          
+          Access Token (MAIN): {tokenInfo}          
         </p>
         
         <Table>
@@ -119,10 +120,10 @@ const Profileone = () => {
         {userInfo2?
           <>
             <p>
-              APP ID: {clientIdOne}
+              APP ID (2): {clientId2}
             </p>
             <p>
-             Access Token: {tokenInfo2}          
+             Access Token (2): {tokenInfo2}          
             </p>
 
             <Table>

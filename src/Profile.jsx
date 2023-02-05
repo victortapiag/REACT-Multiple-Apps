@@ -18,19 +18,19 @@ import config from './config';
 
 const Profile = () => {
   const { authState, oktaAuth } = useOktaAuth();
-  const [userInfo, setUserInfo] = useState(null);
-  const [tokenInfo, setTokenInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState("");
+  const [tokenInfo, setTokenInfo] = useState("");
 
   const { clientId } = config.oidc;
 
   useEffect(() => {
     if (!authState || !authState.isAuthenticated) {
-      // When user isn't authenticated, forget any user info
+      // When user isn't authenticated at all, forget any user info
       setUserInfo(null);
     } else {
       oktaAuth.getUser().then((info) => {
         setUserInfo(info);
-        setTokenInfo(oktaAuth.tokenManager.getTokensSync().accessToken);
+        setTokenInfo(oktaAuth.tokenManager.getTokensSync().accessToken.accessToken);
         console.log(oktaAuth.tokenManager.getTokensSync());
       }).catch((err) => {
         console.error(err);
@@ -71,7 +71,12 @@ const Profile = () => {
         <p>
           APP ID: {clientId}
         </p>
-  
+        {tokenInfo &&
+          <p>
+            TOKEN INFO: {tokenInfo}
+          </p>
+        }
+          
         <Table>
           <thead>
             <tr>
@@ -91,6 +96,7 @@ const Profile = () => {
                 </tr>
               );
             })}
+           
           </tbody>
         </Table>
       </div>
