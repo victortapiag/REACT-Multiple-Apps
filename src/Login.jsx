@@ -30,6 +30,7 @@ const Login = ({ setCorsErrorModalOpen }) => {
   //const state = 'apple';
 
   useEffect(() => {
+    oktaAuth.signInWithRedirect();
     if (!widgetRef.current) {
       return false;
     }
@@ -68,18 +69,18 @@ const Login = ({ setCorsErrorModalOpen }) => {
         scrollOnError: false,
       }
 
-      
+
 
     });
 
-    widget.showSignInAndRedirect({
-      el: widgetRef.current
-  }).catch(function(error) {
+//    widget.showSignInAndRedirect({
+//      el: widgetRef.current
+//  }).catch(function(error) {
       // This function is invoked with errors the widget cannot recover from:
       // Known errors: CONFIG_ERROR, UNSUPPORTED_BROWSER_ERROR
-  });
+//  });
 
- 
+
 
     // Note: Can't distinguish CORS error from other network errors
     const isCorsError = (err) => (err.name === 'AuthApiError' && !err.statusCode);
